@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>购物车</title>
+		<link rel="stylesheet" th:href="@{/shop/css/bootstrap.min.css}"  href="../static/shop/css/bootstrap.min.css " />
+		<script type="text/javascript" th:src="@{/shop/js/jquery-3.2.1.min.js}" src="../static/shop/js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" th:src="@{/shop/js/bootstrap.min.js}"src="../static/shop/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" th:href="@{/shop/css/common.css}" href="../static/shop/css/common.css" />
+	    <style type="text/css">
+	    	.detail{
+	    		width: 1000px;
+	    		margin: auto;
+	    	}
+			.copyright {
+				line-height: 30px;
+				margin-top: 50px;
+				margin-bottom: 10px;
+				color: #555555;
+				text-align: center;
+			}
+	    </style>
+		<script type="text/javascript">
+            function jia() {
+                var zhi = document.getElementById("zhi");
+                zhi.value=parseInt(zhi.value)+1;
+            }
+            function jian() {
+                var zhi1 = parseInt(document.getElementById("zhi").value);
+                var zhi = document.getElementById("zhi");
+                if(zhi1>0){
+                    zhi.value=parseInt(zhi.value)-1;
+                }else {
+                    alert("不可以小于0");
+                }
+
+            }
+		</script>
+	</head>
+	<body>
+
+	<div th:replace="layout/footer :: footer"></div>
+
+	<form th:action="@{/addOrderInfo}" method="post">
+		 <div class="container">
+			<div class="row">
+
+				<div style="margin:0 auto; margin-top:10px;width:1000px;">
+					<strong style="font-size:16px;margin:5px 0;">订单详情</strong>
+					<table class="table table-bordered">
+						<tbody>
+							<tr class="warning">
+								<th>图片</th>
+								<th>商品类</th>
+								<th>商品名</th>
+								<th>价格</th>
+								<th>税费</th>
+								<th>邮费</th>
+								<th>数量</th>
+								<th>小计</th>
+								<th>操作</th>
+							</tr>
+							<tr class="active" th:each="cartItems:${session.cart.cartItems}">
+								<td width="30%">
+									<input type="hidden" name="pid" th:value="${cartItems.product.pid}">
+									<a th:href="@{/findProductByPID(pid=${cartItems.product.pid})}"><img th:src="@{${cartItems.product.image}}" style="width: 50px;height: 50px" ></a>
+								</td>
+								<td width="10%" th:switch="${cartItems.product.cid}">
+									<a href="#" th:case="1">包包类</a>
+									<a href="#" th:case="2">食品类 </a>
+									<a href="#" th:case="3">服装类 </a>
+									<a href="#" th:case="4">香水类 </a>
+								</td>
+								<td width="10%">
+									<a th:href="@{/findProductByPID(pid=${cartItems.product.pid})}"><span th:text="${cartItems.product.pname}"></span></a>
+								</td>
+								<td width="10%">
+									<span th:text="${cartItems.product.price}"></span>
+								</td>
+								<td width="10%">
+									<span th:text="${cartItems.product.taxation}"></span>
+								</td>
+								<td width="10%">
+									<span th:text="${cartItems.product.postage}"></span>
+								</td>
+
+								<td width="15%">
+									<div class="form-group form-inline ce" >
+										<!--<input class="form-control " type="button" value="-" onclick="jian()">
+										<input class="form-control " style="width: 43px;" id="zhi" name="number" th:value="${cartItems.number}" type="text" >
+										<input class="form-control " type="button" value="+" onclick="jia()">-->
+										<input class="form-control " style="width: 43px;" id="zhi" name="number" th:value="${cartItems.number}"   type="hidden">
+										<span th:text="${cartItems.number}" ></span>
+									</div>
+								</td>
+
+								<td width="15%">
+									<span class="subtotal" th:text="${'￥'+cartItems.subtotal}"></span>
+								</td>
+								<td>
+									<a th:href="@{/removeCart(pid=${cartItems.product.pid})}" href="javascript:;" class="delete">删除</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div style="margin-right:130px;">
+				<div style="text-align:right;">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 商品金额: <strong style="color:#ff6600;"  th:text="${'￥'+session.cart.total}"></strong>
+				</div>
+				<div style="text-align:right;margin-top:10px;margin-bottom:10px;">
+					
+					<a href="#" th:href="@{/clearCart}">
+									<input style="background: url('./images/product.gif')  no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;" value="清空购物车" type="button">
+								</a>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button>
+						<input style="background: url('./images/product.gif')  no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;" value="提交订单" type="submit">
+					</button>
+
+
+				</div>
+			</div>
+
+		</div>
+	</form>
+		 <div class="copyright">
+			<span>Copyright © 2018-2019 欧尚会代购物 版权所有</span>
+		</div>
+	</body>
+</html>

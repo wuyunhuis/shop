@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shop.mapper.SpikeMapper" >
+  <resultMap id="spike" type="com.shop.entity.Spike" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="bid" property="bid" jdbcType="INTEGER" />
+  </resultMap>
+  <!--<insert id="insertSpike" parameterType="spike" >
+    <selectKey keyColumn="sid"  keyProperty="sid" resultType="Integer" order="AFTER">
+      select LAST_INSERT_ID()
+    </selectKey>
+    insert into spike (price, time,
+    state, number, pid,
+    bid)
+    values ( #{price}, #{time},
+    #{state}, #{number}, #{pid},
+    #{bid})
+  </insert>-->
+</mapper>

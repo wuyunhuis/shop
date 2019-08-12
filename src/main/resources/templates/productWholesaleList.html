@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>商品详情</title>
+		<link rel="stylesheet" th:href="@{/shop/css/bootstrap.min.css}"  href="../static/shop/css/bootstrap.min.css " />
+		<script type="text/javascript" th:src="@{/shop/js/jquery-3.2.1.min.js}" src="../static/shop/js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" th:src="@{/shop/js/bootstrap.min.js}"src="../static/shop/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" th:href="@{/shop/css/common.css}" href="../static/shop/css/common.css" />
+		<style type="text/css">
+			.detail{
+				width: 1000px;
+				margin: auto;
+			}
+			.box1 {
+				hight: 194px;
+				border-bottom: 1px solid #f4f0ea;
+			}
+
+			.box2 {
+				font-size: 8px;
+				margin-top: 4px;
+				text-align: center;
+			}
+
+			.box3 {
+				margin-top: 4px;
+				text-align: center;
+			}
+			.copyright {
+				line-height: 30px;
+				margin-top: 50px;
+				margin-bottom: 10px;
+				color: #555555;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+	<div th:replace="layout/footer :: footer"></div>
+
+
+	<div   class="form-group form-inline ce" style="width:1030px;margin:25px 400px;">
+		<form th:action="@{/productWholesaleList}"  method="get">
+			<label class="control-label">货&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;源:</label>
+			<select name="source" class="form-control" >
+				<option th:each="sourceList : ${session.sourceList}" th:value="${sourceList.source}"  ><span th:text="${sourceList.source}"></span></option>
+			</select>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<label class="control-label">批&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发:</label>
+			<select name="wholesale" class="form-control">
+
+				<option value="0" >否</option>
+				<option value="1" selected="selected">是</option>
+			</select>
+			<button class="btn btn-success" type="submit">查询</button>
+		</form>
+
+	</div>
+
+   <div class="row" style="	width: 1000px;margin: auto;">
+	<div class="col-md-3"  th:each="product:${pageInfo.list}">
+
+		<div class="box1" ><a th:href="@{/findProductByPID(pid=${product.pid})}"> <img th:src="@{${product.image}}" style="width: 194px;height: 194px"></a></div>
+		<div class="box2"><span style=" font-weight: 600;"   th:text="${product.pname}"></span></div>
+		<div class="box2"><span style=" font-weight: 600;"   th:text="${product.source}"></span>&nbsp; &nbsp;&nbsp;&nbsp;<span style=" font-weight: 600;" th:if="${product.wholesale}==1"> 批发</span><span style=" font-weight: 600;" th:if="${product.wholesale}!=1"> 不批发</span></div>
+		<div class="box3"><span style="color:#d3282e;font-weight: 600;" th:text="${'￥'+product.price}"></span></div>
+	</div>
+   </div>
+
+		<!--分页 -->
+		<div style="width:380px;margin:0 500px;margin-top:50px;">
+			<tfoot>
+			<tr>
+				<td colspan="8" class="text-center">
+					<ul class="pagination">
+						<li><a th:href="@{/productWholesaleList}">首页</a></li>
+						<li> <a th:href="@{/productWholesaleList(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a></li>
+						<li><a th:href="@{/productWholesaleList(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a></li>
+						<li><a th:href="@{/productWholesaleList(pageNum=${pageInfo.pages})}">尾页</a></li>
+						<p>&nbsp;&nbsp;&nbsp;&nbsp; 当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span th:text="${pageInfo.total}"></span> 条记录</p>
+					</ul>
+				</td>
+			</tr>
+			</tfoot>
+		</div>
+		
+		 <div class="copyright">
+			<span>Copyright © 2018-2019 欧尚会代购物 版权所有</span>
+		</div>
+	</body>
+</html>

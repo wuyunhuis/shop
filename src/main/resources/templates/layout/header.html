@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/shop/css/bootstrap.min.css}" href="../../static/shop/css/bootstrap.min.css">
+    <script type="text/javascript" th:src="@{/shop/js/jquery-3.2.1.min.js}" src="../static/shop/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" th:src="@{/shop/js/bootstrap.min.js}"src="../static/shop/js/bootstrap.min.js"></script>
+    <script th:src="@{/shop/js/holder.min.js}"src="../../static/shop/js/holder.min.js"></script>
+    <script th:src="@{/shop/js/application.js}" src="../../static/shop/js/application.js"></script>
+    <title>欧尚代购网后台</title>
+</head>
+<body>
+<header th:fragment="header">
+    <div class="navbar navbar-inverse" >
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-brand">
+                    <small class="glyphicon glyphicon-fire"></small>
+                    欧尚代购网后台
+                </div>
+            </div>
+            <ul class="nav navbar-nav nav-stacked navbar-right">
+                <li>
+                    <a href="#" th:href="@{/findOrderListByBid}">
+                        <span class="glyphicon glyphicon-tasks"></span>
+                        <i class="badge">订单</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" th:href="@{/productRepertoryList}">
+                        <span class="glyphicon glyphicon-bell"></span>
+                        <i class="badge">库存</i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <small>Welcome</small>
+                        <span   th:text="${session.business.bname}"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="nav nav-pills nav-stacked dropdown-menu">
+                        <li class="active">
+                            <a href="#">
+                                <span class="glyphicon glyphicon-cog"></span> 设置
+                            </a>
+                        </li>
+
+                        <li class="divider"></li>
+                        <li>
+                            <a href="login.html" th:href="@{/logout}">
+                                <span class="glyphicon glyphicon-off">退出</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+</body>
+</html>

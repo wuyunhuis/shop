@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" th:href="@{/shop/css/bootstrap.min.css}" href="../../static/shop/css/bootstrap.min.css">
+    <script type="text/javascript" th:src="@{/shop/js/jquery-3.2.1.min.js}" src="../static/shop/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" th:src="@{/shop/js/bootstrap.min.js}"src="../static/shop/js/bootstrap.min.js"></script>
+    <script th:src="@{/shop/js/holder.min.js}"src="../../static/shop/js/holder.min.js"></script>
+    <script th:src="@{/shop/js/application.js}" src="../../static/shop/js/application.js"></script>
+    <title>欧尚代购网后台</title>
+
+</head>
+<body>
+<!-- 导航栏部分 -->
+<div th:replace="layout/header :: header"></div>
+<!-- 页面部分 -->
+<div class="row">
+    <div th:replace="layout/left :: left"></div>
+
+    <div class="col-sm-10">
+
+
+        <div class="panle panel-success">
+            <div class="panel-heading">
+                <a class="panel-title">订单列表</a>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>订单ID</th>
+                        <th>商品名</th>
+                        <th>商品数量</th>
+                        <th>商品图片</th>
+                        <th>用户名</th>
+                        <th>收货地址</th>
+                        <th>联系电话</th>
+                        <th>下单时间</th>
+                        <th>生成途径</th>
+                        <th>订单状态</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="orderList:${pageInfo.list}">
+                        <td th:text="${orderList.orders.oid}"> </td>
+                        <td th:text="${orderList.product.pname}"> </td>
+                        <td th:text="${orderList.orders.number}"> </td>
+                        <td><img th:src="@{${orderList.product.image}}" width="70" height="60"> </td>
+                        <td th:text="${orderList.orders.name}"></td>
+                        <td th:text="${orderList.orders.addr}"></td>
+                        <td th:text="${orderList.orders.phone}"></td>
+                        <td th:text="${#dates.format(orderList.orders.time,'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <td  th:switch="${orderList.orders.channel}">
+                            <a href="#" th:case="0">正常购买</a>
+                            <a href="#" th:case="1">拼单购买 </a>
+                            <a href="#" th:case="2">秒杀购买 </a>
+                        </td>
+                        <td  th:switch="${orderList.orders.state}">
+                            <!--<a href="#" th:case="0">待付款</a>-->
+                            <span  th:case="1">待发货 <a  class="btn btn-success btn-xs" th:href="@{/updateOrderState(state=${orderList.orders.state},oid=${orderList.orders.oid})}">已发货</a></span>
+                            <span   th:case="2">已发货 </span>
+                            <span  th:case="3">已收货</span>
+                        </td>
+
+                    </tr>
+
+
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="8" class="text-center">
+                            <ul class="pagination">
+                                <li><a th:href="@{/findOrderListByBid}">首页</a></li>
+                                <li> <a th:href="@{/findOrderListByBid(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a></li>
+                                <li><a th:href="@{/findOrderListByBid(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a></li>
+                                <li><a th:href="@{/findOrderListByBid(pageNum=${pageInfo.pages})}">尾页</a></li>
+                                <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span th:text="${pageInfo.total}"></span> 条记录</p>
+                            </ul>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>

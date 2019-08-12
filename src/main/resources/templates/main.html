@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<link rel="stylesheet" th:href="@{/shop/css/bootstrap.min.css}"  href="../static/shop/css/bootstrap.min.css " />
+		<script type="text/javascript" th:src="@{/shop/js/jquery-3.2.1.min.js}" src="../static/shop/js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" th:src="@{/shop/js/bootstrap.min.js}"src="../static/shop/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" th:href="@{/shop/css/common.css}" href="../static/shop/css/product.css" />
+		<link rel="stylesheet" th:href="@{/shop/css/common.css}" href="../static/shop/css/product.css" />
+		<style type="text/css">
+			
+			
+			.panel {
+				width: 1000px;
+				margin: 0 auto;
+			}
+			
+			.title {
+				height: 250px;
+				display: flex;
+				border: 1px solid red;
+			}
+			
+			.title div {
+				border: 1px solid red;
+				flex-grow: 1;
+			}
+			
+			.box1 {
+				hight: 194px;
+				border-bottom: 1px solid #f4f0ea;
+			}
+			
+			.box2 {
+				font-size: 8px;
+				margin-top: 4px;
+				text-align: center;
+			}
+			
+			.box3 {
+				margin-top: 4px;
+				text-align: center;
+			}
+			.copyright {
+				line-height: 30px;
+				margin-top: 50px;
+				margin-bottom: 10px;
+				color: #555555;
+				text-align: center;
+			}
+			
+			
+		</style>
+
+		
+	</head>
+
+	<body>
+
+	<div th:replace="layout/footer :: footer"></div>
+
+
+		<div class="panel panel-danger">
+			<div class="panel-heading">
+				<h3 class="panel-title">最新上架</h3>
+			</div>
+			<div class="panel-body" style="height: 280px; display: flex;">
+
+				<div class="title1" style="flex-grow:1 ;border: 1px solid red;" th:each="nProduct:${nList}">
+					<div class="box1"><a th:href="@{/findProductByPID(pid=${nProduct.pid})}"><img th:src="@{${nProduct.image}}" style="width: 194px;height: 194px" ></a></div>
+					<div class="box2"><span th:text="${nProduct.pname}" style=" font-weight: 600;" ></span></div>
+					<div class="box3" ><span th:text="${'￥'+nProduct.price}" style="color:#d3282e;font-weight: 600;"></span></div>
+				</div>
+
+			</div>
+		</div>
+		<br />
+		<br />
+		 
+        <div class="panel panel-danger">
+			<div class="panel-heading">
+				<h3 class="panel-title">热门推荐</h3>
+			</div>
+
+			<div class="panel-body" style="height: 280px; display: flex;" >
+
+				<div class="title1" style="flex-grow:1 ;border: 1px solid red;" th:each="product:${hList}">
+
+					<div class="box1" ><a th:href="@{/findProductByPID(pid=${product.pid})}"> <img th:src="@{${product.image}}" style="width: 194px;height: 194px"></a></div>
+					<div class="box2"><span style=" font-weight: 600;"   th:text="${product.pname}"></span></div>
+					<div class="box3"><span style="color:#d3282e;font-weight: 600;" th:text="${'￥'+product.price}"></span></div>
+				</div>
+
+
+			</div>
+		</div>
+
+		<div class="copyright">
+			<span>Copyright © 2018-2019 欧尚会代购物 版权所有</span>
+		</div>
+
+	</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>秒杀列表</title>
+		<link rel="stylesheet" th:href="@{/shop/css/bootstrap.min.css}"  href="../static/shop/css/bootstrap.min.css " />
+		<script type="text/javascript" th:src="@{/shop/js/jquery-3.2.1.min.js}" src="../static/shop/js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" th:src="@{/shop/js/bootstrap.min.js}"src="../static/shop/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" th:href="@{/shop/css/common.css}" href="../static/shop/css/common.css" />
+		<style type="text/css">
+			.detail{
+				width: 1000px;
+				margin: auto;
+			}
+			.box1 {
+				hight: 194px;
+				border-bottom: 1px solid #f4f0ea;
+			}
+
+			.box2 {
+				font-size: 8px;
+				margin-top: 4px;
+				text-align: center;
+			}
+
+			.box3 {
+				margin-top: 4px;
+				text-align: center;
+			}
+			.copyright {
+				line-height: 30px;
+				margin-top: 50px;
+				margin-bottom: 10px;
+				color: #555555;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+	<div th:replace="layout/footer :: footer"></div>
+
+	<div class="container">
+		<div class="row">
+			<div style="border: 1px solid #e4e4e4;width:1000px;margin-bottom:10px;margin:0 auto;padding:10px;margin-bottom:10px;" >
+				<a href="#" th:href="@{/index}">首页&nbsp;&nbsp;&gt;</a>
+				<a><span> 今日秒杀 </span></a>
+			</div>
+		</div>
+		<div class="row" style="width:1030px;margin:0 auto;">
+			<div class="col-md-12">
+			</div>
+			<div class="row" style="	width: 1000px;margin: auto;">
+	<div class="col-md-3"  th:each="spikeProduct:${pageInfo.list}">
+
+		<div class="box1" ><a th:href="@{/productSpikeByPids(sid=${spikeProduct.spike.sid})}"> <img th:src="@{${spikeProduct.product.image}}" style="width: 194px;height: 194px"></a></div>
+		<div class="box2"><span style=" font-weight: 600;"   th:text="${spikeProduct.product.pname}"></span></div>
+
+		<div class="box3"> 秒杀价：<span style="color:#d3282e;font-weight: 600;" th:text="${'￥'+spikeProduct.spike.price}"></span></div>
+		<div class="box3">原价：<del style="color:#d3282e;font-weight: 600;" th:text="${'￥'+spikeProduct.product.price}"></del> </div>
+
+		<div class="box2"><span style=" font-weight: 600;">秒杀时间：</span> <span style=" font-weight: 600;"  th:text="${#dates.format(spikeProduct.spike.time,'yyyy-MM-dd HH:mm:ss')}"></span></div>
+	</div>
+   </div>
+
+		<!--分页 -->
+		<div style="width:380px;margin:0 400px;margin-top:50px;">
+			<tfoot>
+			<tr>
+				<td colspan="8" class="text-center">
+					<ul class="pagination">
+						<li><a th:href="@{/productBySpikeList}">首页</a></li>
+						<li> <a th:href="@{/productBySpikeList(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a></li>
+						<li><a th:href="@{/productBySpikeList(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a></li>
+						<li><a th:href="@{/productBySpikeList(pageNum=${pageInfo.pages})}">尾页</a></li>
+						<p>&nbsp;&nbsp;&nbsp;&nbsp; 当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span th:text="${pageInfo.total}"></span> 条记录</p>
+					</ul>
+				</td>
+			</tr>
+			</tfoot>
+		</div>
+		
+		 <div class="copyright">
+			<span>Copyright © 2018-2019 欧尚会代购物 版权所有</span>
+		</div>
+	</body>
+</html>

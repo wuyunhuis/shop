@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" th:href="@{/shop/css/bootstrap.min.css}" href="/static/shop/css/bootstrap.min.css">
+    <script type="text/javascript" th:src="@{/shop/js/jquery-3.2.1.min.js}" src="../static/shop/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" th:src="@{/shop/js/bootstrap.min.js}"src="../static/shop/js/bootstrap.min.js"></script>
+    <script th:src="@{/shop/js/holder.min.js}"src="../../static/shop/js/holder.min.js"></script>
+    <script th:src="@{/shop/js/application.js}" src="../../static/shop/js/application.js"></script>
+    <title>欧尚代购网后台</title>
+    <style type="text/css">
+        #register {
+            width: 500px;
+            margin: 50px auto;
+        }
+        .glyphicon-ok{
+            color: green;
+            font-size: 19px;
+            font-weight:10 ;
+        }
+        .spanStyleErr{
+            color: #FF0000;
+        }
+    </style>
+</head>
+<body>
+<!-- 导航栏部分 -->
+<div th:replace="layout/header :: header"></div>
+
+<!-- 页面部分 -->
+<div class="row">
+
+    <div th:replace="layout/left :: left"></div>
+
+    <div class="panel-body"  id="register">
+
+        <form class="form-inline"  th:action="@{/addSpelllist}"  enctype="multipart/form-data" method="post">
+            <div class="form-group form-inline ce" >
+                <label class="control-label">商&nbsp;&nbsp;品&nbsp;&nbsp;名:</label>
+                <select name="pid" class="form-control"  >
+                    <option   th:each="product : ${list}" th:value="${product.pid}"><span th:text="${product.pname}"></span></option>
+                </select>
+            </div><br/>
+            <div class="form-group form-inline ce">
+                <label class="control-label"  >价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格:</label>
+                <input type="text" name="price" class="form-control "  />
+
+            </div><br/>
+
+
+            <div class="form-group form-inline ce" >
+                <label class="control-label">数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量:</label>
+                <input type="text" id="details" name="number" class="form-control "   />
+
+            </div><br/>
+
+
+
+            <div style="padding-top: 20px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="submit"  class="btn btn-success" >添加</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a  class="btn btn-success" href="login.html" th:href="@{/spelllistList}">取消</a>
+            </div>
+        </form>
+    </div>
+
+
+</div>
+
+</body>
+</html>

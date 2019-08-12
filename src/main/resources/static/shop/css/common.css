@@ -1,0 +1,62 @@
+.breadcrumb > li + li:before {
+				color: #CCCCCC;
+				content: "|";
+				padding: 0 5px;
+			}
+			
+			.navbar {
+				height: 6px;
+			}
+			
+			.breadcrumb {
+				padding-top: 11px;
+			}
+			
+			.topnav {
+				width: 1000px;
+				height: 54px;
+				font-size: 14px;
+				background-color: rgb(164, 190, 116);
+				cursor: pointer;
+				border-top-left-radius: 7px;
+				border-top-right-radius: 7px;
+				line-height: 54px;
+				margin: 31px auto;
+			}
+			
+			.clearfix li {
+				list-style: none;
+				float: left;
+				padding-right: 101px;
+				color: #fff;
+				position: relative;
+			}
+			
+			.clearfix li a {
+				color: #fff;
+			}
+			
+			.clearfix .title {
+				font-size: 18px;
+			}
+			
+			.colors {
+				color: #fff;
+				text-decoration: none;
+			}
+			
+			.topnav .active:after {
+				position: absolute;
+				left: -106px;
+				top: 43px;
+				right: 0px;
+				width: 0px;
+				height: 0px;
+				border-left: 8px solid transparent;
+				border-right: 8px solid transparent;
+				border-bottom: 14px solid #fff;
+				content: "";
+				display: block;
+				margin: auto;
+			}
+

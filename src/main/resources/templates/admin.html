@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" th:href="@{/shop/css/bootstrap.min.css}" href="../../static/shop/css/bootstrap.min.css">
+    <script type="text/javascript" th:src="@{/shop/js/jquery-3.2.1.min.js}" src="../static/shop/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" th:src="@{/shop/js/bootstrap.min.js}"src="../static/shop/js/bootstrap.min.js"></script>
+    <script th:src="@{/shop/js/holder.min.js}"src="../../static/shop/js/holder.min.js"></script>
+    <script th:src="@{/shop/js/application.js}" src="../../static/shop/js/application.js"></script>
+    <title>欧尚代购网后台</title>
+
+</head>
+<body>
+<!-- 导航栏部分 -->
+
+<div th:replace="layout/header :: header"></div>
+
+<!-- 页面部分 -->
+<div class="row">
+
+    <div th:replace="layout/left :: left"></div>
+
+    <div style=" margin: 250px 500px;">
+        <img th:src="@{/shop/image/title.jpg}"style="width: 500px;height: 140px;"/>
+    </div>
+
+
+</div>
+
+
+
+</body>
+</html>

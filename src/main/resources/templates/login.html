@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  >
+
+	<head>
+		<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<link rel="stylesheet" th:href="@{/shop/css/bootstrap.min.css}"  href="../static/shop/css/bootstrap.min.css " />
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			.login-background{
+		 		width: 100%;
+		 		height: 100%;
+				margin: 0;padding: 0;
+		 	}
+
+
+		</style>
+	</head>
+<body  th:style="'background:url(' + @{/shop/images/bg.jpg} + ');'">
+
+
+		<div class="panel  panel-primary" id="login" style="width: 400px;
+margin: 200px auto;">
+
+			<div class="panel-heading"style="font-size: 30px; height: 60px;">
+				<p class="text-center ">欢迎登录欧尚会代购网</p>
+
+			</div>
+			<div class="panel-body">
+				<form class="form" action="#" th:action="@{/index}" method="post">
+					<div class="form-group form-inline ce" style="margin-left:60px ;margin-top:30px;margin-bottom:30px; ">
+						<label class="control-label">用户名:</label>
+						<input type="text" th:if="${username}!=null" th:value="${username}" name="username"  class="form-control input-sm" placeholder="用户名" />
+						<input type="text" th:if="${username}==null"  name="username"  class="form-control input-sm" placeholder="用户名" />
+					</div>
+					<div class="form-group form-inline" style="margin-left:60px ;">
+						<label class="control-label">密&nbsp;&nbsp;&nbsp;&nbsp;码:</label>
+						<input type="password" name="password" class="form-control input-sm" placeholder="密码" />
+					</div>
+					<p class="text-right"><small>没有账号？</small>
+						<a class="btn btn-link btn-sm" href="register.html" th:href="@{/register}">注册</a>
+					</p>
+					<button TYPE="submit" class="btn btn-primary btn-block" >登录</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

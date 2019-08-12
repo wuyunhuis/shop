@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html><html xmlns:th="http://www.thymeleaf.org">
+<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>订单详情</title>
+		<link rel="stylesheet" th:href="@{/shop/css/bootstrap.min.css}"  href="../static/shop/css/bootstrap.min.css " />
+		<script type="text/javascript" th:src="@{/shop/js/jquery-3.2.1.min.js}" src="../static/shop/js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" th:src="@{/shop/js/bootstrap.min.js}"src="../static/shop/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" th:href="@{/shop/css/common.css}" href="../static/shop/css/common.css" />
+	    <style type="text/css">
+	    	.detail{
+	    		width: 1000px;
+	    		margin: auto;
+	    	}
+			.copyright {
+				line-height: 30px;
+				margin-top: 50px;
+				margin-bottom: 10px;
+				color: #555555;
+				text-align: center;
+			}
+	    </style>
+	</head>
+	<body>
+
+	<div th:replace="layout/footer :: footer"></div>
+
+	<form th:action="@{/ordersList}" method="post">
+		 <div class="container">
+			<div class="row">
+
+				<div style="margin:0 auto;margin-top:10px;width:950px;">
+					<strong>订单详情</strong>
+					<table class="table table-bordered">
+						<tbody>
+							<tr class="warning">
+								<th colspan="8">订单编号:<span th:text="${uuid}"></span> <input type="hidden" name="oid" th:value="${uuid}"> </th>
+							</tr>
+							<tr class="warning">
+								<th>图片</th>
+								<th>商品类</th>
+								<th>商品名</th>
+								<th>价格</th>
+								<th>税费</th>
+								<th>邮费</th>
+								<th>数量</th>
+								<th>总计</th>
+							</tr>
+							<tr class="active">
+								<td width="30%">
+									<input type="hidden" name="pid" th:value="${cartItems.product.pid}">
+									<img th:src="@{${cartItems.product.image}}" style="width: 70px;height: 60px" >
+								</td>
+								<td width="10%" th:switch="${cartItems.product.cid}">
+									<a href="#" th:case="1">包包类</a>
+									<a href="#" th:case="2">食品类 </a>
+									<a href="#" th:case="3">服装类 </a>
+									<a href="#" th:case="4">香水类 </a>
+								</td>
+								<td width="10%">
+									<a th:href="@{/findProductByPID(pid=${cartItems.product.pid})}"><span th:text="${cartItems.product.pname}"></span></a>
+								</td>
+
+								<td width="10%" >
+									<span th:text="${cartItems.product.price}"></span>
+								</td>
+								<td width="10%">
+									<span th:text="${cartItems.product.taxation}"></span>
+								</td>
+								<td width="10%">
+									<span th:text="${cartItems.product.postage}"></span>
+								</td>
+
+								<td width="10%">
+									<span th:text="${cartItems.number}"></span>
+
+									<input type="hidden" name="number" th:value="${cartItems.number}">
+								</td>
+
+								<td width="10%">
+									<span class="subtotal" th:text="${'￥'+cartItems.subtotal}"></span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div style="text-align:right;margin-right:120px;">
+					商品金额: <strong style="color:#ff6600;"th:text="${'￥'+cartItems.subtotal+'元'}"></strong>
+					<input type="hidden" name="total" th:value="${cartItems.subtotal}"  >
+				</div>
+
+			</div>
+
+			<div>
+				<hr/>
+				<div class="form-horizontal" style="margin-top:5px;margin-left:150px;">
+					<div class="form-group">
+						<label for="username" class="col-sm-1 control-label">地址</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="username"  name="addr" th:value="${session.user.addr}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-1 control-label">收货人</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="inputPassword3" name="name" th:value="${session.user.name}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="confirmpwd" class="col-sm-1 control-label">电话</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="confirmpwd" name="phone"  th:value="${session.user.phone}">
+
+						</div>
+						<input type="hidden" value="0",name="channels">
+					</div>
+				</div>
+
+				<hr/>
+
+				<div style="margin-top:5px;margin-left:150px;">
+					<strong>选择银行：</strong>
+					<p>
+						<br/>
+						<input type="radio" name="pd_FrpId" value="ICBC-NET-B2C" checked="checked" />工商银行
+						<img th:src="@{/shop/bank_img/icbc.bmp}" align="middle" />&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="pd_FrpId" value="BOC-NET-B2C" />中国银行
+						<img th:src="@{/shop/bank_img/bc.bmp}" align="middle" />&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="pd_FrpId" value="ABC-NET-B2C" />农业银行
+						<img th:src="@{/shop/bank_img/abc.bmp}" align="middle" />
+						<br/>
+						<br/>
+						<input type="radio" name="pd_FrpId" value="BOCO-NET-B2C" />交通银行
+						<img th:src="@{/shop/bank_img/bcc.bmp}" align="middle" />&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="pd_FrpId" value="PINGANBANK-NET" />平安银行
+						<img th:src="@{/shop/bank_img/pingan.bmp}" align="middle" />&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="pd_FrpId" value="CCB-NET-B2C" />建设银行
+						<img th:src="@{/shop/bank_img/ccb.bmp}" align="middle" />
+						<br/>
+						<br/>
+						<input type="radio" name="pd_FrpId" value="CEB-NET-B2C" />光大银行
+						<img th:src="@{/shop/bank_img/guangda.bmp}" align="middle" />&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="pd_FrpId" value="CMBCHINA-NET-B2C" />招商银行
+						<img th:src="@{/shop/bank_img/cmb.bmp}" align="middle" />
+
+					</p>
+					<input type="hidden" name="uid"th:value="${session.user.uid}" >
+					<hr/>
+					<p style="text-align:right;margin-right:70px;">
+						<button name="states" value="立即购买" type="submit" >
+							<img th:src="@{/shop/images/finalbutton.gif}" width="127" height="40" border="0" />
+						</button>
+						<!--&nbsp;&nbsp;&nbsp;&nbsp;
+						<input style="background: url('./images/product.gif')  no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:40px;width:127px;" value="稍后付款" name="states" type="submit">-->
+					</p>
+
+					<hr/>
+
+				</div>
+			</div>
+
+		</div>
+
+	</form>
+		 <div class="copyright">
+			<span>Copyright © 2018-2019 欧尚会代购物 版权所有</span>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/shop/css/bootstrap.min.css}" href="../../static/shop/css/bootstrap.min.css">
+    <script type="text/javascript" th:src="@{/shop/js/jquery-3.2.1.min.js}" src="../static/shop/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" th:src="@{/shop/js/bootstrap.min.js}"src="../static/shop/js/bootstrap.min.js"></script>
+    <script th:src="@{/shop/js/holder.min.js}"src="../../static/shop/js/holder.min.js"></script>
+    <script th:src="@{/shop/js/application.js}" src="../../static/shop/js/application.js"></script>
+    <title>欧尚代购网后台</title>
+</head>
+<body>
+<left th:fragment="left">
+    <div class="col-sm-2" >
+        <div id="search">
+            <div class="input-group">
+             <form method="post" action="#" th:action="@{/findProductByLikeName}" >
+                <input style="width: 145px;" class="form-control input-sm" name="pname" type="text" placeholder="商品搜索"/>
+                <div class="input-group-btn">
+                    <button type="submit"  class="btn btn-success btn-sm">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </div>
+             </form>
+        </div>
+        </div>
+
+        <div class="panel-group" id="box" style="padding-top: 25px">
+
+
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <a href="#collapseA" data-parent="#box" data-toggle="collapse" class="panel-title">商品管理</a>
+                </div>
+                <div class="panel-collapse collapse" id="collapseA">
+                    <div class="panel-body">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="#" th:href="@{/adminProductList(bid=${session.business.bid})}">商品列表</a></li>
+                            <li><a href="#" th:href="@{/toProductAdd}">商品添加</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <a href="#collapseC" data-parent="#box" data-toggle="collapse" class="panel-title">拼单管理</a>
+                </div>
+                <div class="panel-collapse collapse" id="collapseC">
+                    <div class="panel-body">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="#" th:href="@{/spelllistList}">拼单列表</a></li>
+                            <li><a href="#" th:href="@{/toAddspelllist}">拼单添加</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <a href="#collapseD" data-parent="#box" data-toggle="collapse"
+                       class="panel-title">秒杀管理</a>
+                </div>
+                <div class="panel-collapse collapse" id="collapseD">
+                    <div class="panel-body">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="#"  th:href="@{/SpikeList}">秒杀列表</a></li>
+                            <li><a href="#"  th:href="@{/toAddsSpike}">秒杀添加</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <a href="#collapseE" data-parent="#box" data-toggle="collapse"
+                       class="panel-title">库存管理</a>
+                </div>
+                <div class="panel-collapse collapse" id="collapseE">
+                    <div class="panel-body">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="#" th:href="@{/productRepertoryList}">库存列表</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <a href="#collapseF" data-parent="#box" data-toggle="collapse"
+                       class="panel-title">订单管理</a>
+                </div>
+                <div class="panel-collapse collapse" id="collapseF">
+                    <div class="panel-body">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="#"th:href="@{/findOrderListByBid}">订单列表</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</left>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ <head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>欧尚会代购网后台登录</title>
+    <link rel="stylesheet" th:href="@{/shop/css/bootstrap.min.css}" href="../../static/shop/css/bootstrap.min.css">
+    <link rel="stylesheet"  th:href="@{/shop/css/login.css}" href="../../static/shop/css/css/login.css">
+	<script type="text/javascript" th:src="@{/shop/js/jquery-3.2.1.min.js}" src="../static/shop/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" th:src="@{/shop/js/bootstrap.min.js}"src="../static/shop/js/bootstrap.min.js"></script>
+	<script th:src="@{/shop/js/holder.min.js}"src="../../static/shop/js/holder.min.js"></script>
+	<script th:src="@{/shop/js/application.js}" src="../../static/shop/js/application.js"></script>
+    <style type="text/css">
+   *{margin: 0;padding: 0;}
+   html,body{
+    width: 100%;
+    height: 100%;
+   }
+
+  </style>
+ </head>
+</head>
+<body >
+
+ <div class="login-background" th:style="'background:url(' + @{/shop/images/bg.jpg} + ');'">
+
+
+  <div class="login-panel">
+  <div class="login-title">欧尚会代购网后台登录</div>
+  <form class="form-group" action="#" th:action="@{/login}" method="post">
+  <div class="col-md-12 form-panel">
+   <div class="input-block">
+   <div class="has-feedback">
+    <input id="userIdentifier" class="form-control" placeholder="用户名" name="account"/>
+    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+   </div>
+
+   </div>
+   <div class="input-block">
+   <div class="has-feedback">
+    <input id="userIdentifier" class="form-control" placeholder="登录密码"name="password" type="password"/>
+    <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+   </div>
+   </div>
+   
+   <div class="row">
+   <div class="login-button">
+    <button class="btn" type="submit">登 录</button>
+   </div>
+   </div>
+  </div>
+  </form>
+
+ </div>
+
+ </div>
+
+</body>
+</html>

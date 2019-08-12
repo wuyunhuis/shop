@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.ProductMapper">
+
+  <resultMap id="product" type="com.shop.entity.Product">
+
+    <id column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="pname" jdbcType="VARCHAR" property="pname" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="details" jdbcType="VARCHAR" property="details" />
+    <result column="hot" jdbcType="INTEGER" property="hot" />
+    <result column="pdate" jdbcType="TIMESTAMP" property="pdate" />
+    <result column="taxation" jdbcType="DOUBLE" property="taxation" />
+    <result column="postage" jdbcType="DOUBLE" property="postage" />
+    <result column="repertory" jdbcType="INTEGER" property="repertory" />
+    <result column="sales" jdbcType="INTEGER" property="sales" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="wholesale" jdbcType="INTEGER" property="wholesale" />
+    <result column="cid" jdbcType="INTEGER" property="cid" />
+    <result column="bid" jdbcType="INTEGER" property="bid" />
+  </resultMap>
+
+  <!--pid要与接口传进来的参数取名一致-->
+  <select id="findProductByID"  parameterType="Integer" resultMap="product">
+    select *  from product where pid = #{pid}
+  </select>
+
+  <!--查询所有商品-->
+  <select id="findAllProduct"  resultMap="product">
+    select *  from product
+  </select>
+
+  <!--hot查询热门商品-->
+  <select id="findProductByHot"  resultMap="product">
+    select *  from product where hot = 1
+  </select>
+
+  <!--按照商家ID查询商品-->
+  <select id="findProductByBid" parameterType="Integer"  resultMap="product">
+    select *  from product where bid = #{bid}
+  </select>
+  <!--pdate查询最新商品-->
+  <select id="findProductByDate"  resultMap="product">
+    select *  from product as p order by p.pdate desc limit 5
+  </select>
+
+
+
+  <update id="EditProductById" parameterType="com.shop.entity.Product">
+    UPDATE product
+    <set>
+
+      <if test="pname != null">
+        pname = #{pname},
+      </if>
+      <if test="price != null">
+        price = #{price},
+      </if>
+      <if test="image != null">
+        image = #{image},
+      </if>
+      <if test="details != null">
+        details = #{details},
+      </if>
+      <if test="hot != null">
+        hot = #{hot},
+      </if>
+      <if test="pdate != null">
+        pdate = #{pdate},
+      </if>
+      <if test="taxation != null">
+        taxation = #{taxation},
+      </if>
+      <if test="postage != null">
+        postage = #{postage},
+      </if>
+      <if test="repertory != null">
+        repertory = #{repertory},
+      </if>
+      <if test="sales != null">
+        sales = #{sales},
+      </if>
+      <if test="source != null">
+        source = #{source},
+      </if>
+      <if test="wholesale != null">
+        wholesale = #{wholesale},
+      </if>
+      <if test="cid != null">
+        cid = #{cid},
+      </if>
+      <if test="bid != null">
+        bid = #{bid},
+      </if>
+    </set>
+    WHERE pid = #{pid}
+  </update>
+
+  <!-- 根插入商品-->
+  <insert id="insertProduct" parameterType="com.shop.entity.Product">
+     <selectKey keyColumn="pid"  keyProperty="pid" resultType="Integer" order="AFTER">
+          select LAST_INSERT_ID()
+      </selectKey>
+    insert into product (pname, price,
+    image, details, hot, pdate,
+    taxation, postage, repertory,
+    sales, source, wholesale,
+    cid, bid)
+    values ( #{pname},#{price},#{image},#{details},#{hot},#{pdate},#{taxation},#{postage},#{repertory},#{sales},#{source},#{wholesale},#{cid},#{bid})
+  </insert>
+</mapper>

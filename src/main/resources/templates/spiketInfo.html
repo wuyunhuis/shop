@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>秒杀商品列表</title>
+		<link rel="stylesheet" th:href="@{/shop/css/bootstrap.min.css}"  href="../static/shop/css/bootstrap.min.css " />
+		<script type="text/javascript" th:src="@{/shop/js/jquery-3.2.1.min.js}" src="../static/shop/js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" th:src="@{/shop/js/bootstrap.min.js}"src="../static/shop/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" th:href="@{/shop/css/common.css}" href="../static/shop/css/common.css" />
+	    <style type="text/css">
+	    	.detail{
+	    		width: 1000px;
+	    		margin: auto;
+	    	}
+			.copyright {
+				line-height: 30px;
+				margin-top: 50px;
+				margin-bottom: 10px;
+				color: #555555;
+				text-align: center;
+			}
+	    </style>
+
+	</head>
+	<body>
+	<div th:replace="layout/footer :: footer"></div>
+		 
+		 <div class="container">
+			<div class="row">
+				<div style="border: 1px solid #e4e4e4;width:1000px;margin-bottom:10px;margin:0 auto;padding:10px;margin-bottom:10px;" >
+					<a href="#" th:href="@{/index}">首页&nbsp;&nbsp;&gt;</a>
+					<a href="#" th:href="@{/productBySpikeList}" >今日秒杀&nbsp;&nbsp;&gt;</a>
+					<a><span th:text="${spikeProduct.product.pname}"></span></a>
+				</div>
+          </div>
+
+
+
+
+				<div class="row" style="margin:0 auto;width:1000px;">
+					<div class="col-md-6">
+						<img style="opacity: 1;width:400px;height:350px;" title="" class="medium" th:src="@{${spikeProduct.product.image}}">
+					</div>
+
+					<div class="col-md-6">
+						<div><strong th:text="${spikeProduct.product.details}"></strong></div>
+						<div style="border-bottom: 1px dotted #dddddd;width:350px;margin:10px 0 10px 0;">
+							<div>编号： <span th:text="${spikeProduct.product.pid}"></span>  &nbsp;&nbsp;&nbsp;&nbsp;   秒杀库存： <span th:text="${spikeProduct.spike.number}" ></span></div>
+						</div>
+
+						<div style="margin:10px 0 10px 0;">秒杀价 : <strong style="color:#ef0101;" th:text="${'￥'+spikeProduct.spike.price}">元</strong>元 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 原价: <del  th:text="${'￥'+spikeProduct.product.price}"></del>元
+						</div>
+
+						<div style="margin:10px 0 10px 0;">商品税费：<strong style="color:#ef0101;" th:text="${'￥'+spikeProduct.product.taxation}" ></strong>元&nbsp; &nbsp; &nbsp; 商品邮费：<strong style="color:#ef0101;"  th:text="${'￥'+spikeProduct.product.postage}"></strong> 元 </div>
+
+						<div style="margin:10px 0 10px 0;"> 出产地：<span th:text="${spikeProduct.product.source}"></span> </div>
+
+						<div style="padding:10px;border:1px solid #e7dbb1;width:330px;margin:15px 0 10px 0;;background-color: #fffee6;">
+							<div style="margin:5px 0 10px 0;"><br></div>
+
+							<div style="border-bottom: 1px solid #faeac7;margin-top:20px;padding-left: 10px;" class="form-group form-inline ce">
+								<div style="border-bottom: 1px solid #faeac7;margin-top:20px;padding-left: 10px;">限购数量：<strong style="color:#ef0101;"> 1</strong></div>
+
+
+
+
+
+
+								<a href="#" th:if="${session.user}==null" th:href="@{/loginMain}" th:switch="${states}" >
+									<a th:href="@{/loginMain}">
+										<input  th:case="0"  style="background: url('./images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;" value="秒杀时间未到"  name="channel" type="submit">
+									</a>
+
+									<a th:href="@{/loginMain}">
+										<input  th:case="1"  style="background: url('./images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;" value="立即秒杀"  name="channel" type="submit">
+									</a>
+
+									<a th:href="@{/loginMain}">
+										<input  th:case="2"  style="background: url('./images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;" value="秒杀结束"  name="channel" type="submit">
+									</a>
+
+								</a>
+								<a href="#" th:if="${session.user}!=null"  th:switch="${states}" >
+									<a >
+									<input  th:case="0"  style="background: url('./images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;" value="秒杀时间未到"  name="channel" type="submit">
+								   </a>
+
+									<a th:href="@{/buySpikePrice(sid=${spikeProduct.spike.sid})}">
+										<input  th:case="1"   style="background: url('./images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;" value="立即秒杀"  name="channel" type="submit">
+									</a>
+
+									<a >
+										<input  th:case="2"  style="background: url('./images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;" value="秒杀结束"  name="channel" type="submit">
+									</a>
+
+								</a>
+
+
+								<a href="#" th:href="@{/loginMain}" th:if="${session.user}==null">
+									<input style="background: url('./images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;" value="原价购买"  type="button">
+								</a>
+								<a href="#" th:href="@{/buyProductPrice(pid=${spikeProduct.product.pid})}" th:if="${session.user}!=null">
+									<input  style="background: url('./images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;" value="原价购买" name="channel" type="submit" >
+								</a>
+
+
+
+							</div>
+						</div>
+
+
+
+
+					</div>
+				</div>
+
+			
+		</div>
+		<div class="copyright">
+			<span>Copyright © 2018-2019 欧尚会代购物 版权所有</span>
+		</div>
+		 
+	</body>
+</html>

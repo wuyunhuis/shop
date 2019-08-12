@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/shop/css/bootstrap.min.css}"  href="../static/shop/css/bootstrap.min.css " />
+    <script type="text/javascript" th:src="@{/shop/js/jquery-3.2.1.min.js}" src="../static/shop/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" th:src="@{/shop/js/bootstrap.min.js}"src="../static/shop/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/shop/css/common.css}" href="../static/shop/css/common.css" />
+    <style type="text/css">
+
+
+        .panel {
+            width: 1000px;
+            margin: 0 auto;
+        }
+
+        .title {
+            height: 250px;
+            display: flex;
+            border: 1px solid red;
+        }
+
+        .title div {
+            border: 1px solid red;
+            flex-grow: 1;
+        }
+
+        .box1 {
+            hight: 194px;
+            border-bottom: 1px solid #f4f0ea;
+        }
+
+        .box2 {
+            font-size: 8px;
+            margin-top: 4px;
+            text-align: center;
+        }
+
+        .box3 {
+            margin-top: 4px;
+            text-align: center;
+        }
+        .copyright {
+            line-height: 30px;
+            margin-top: 50px;
+            margin-bottom: 10px;
+            color: #555555;
+            text-align: center;
+        }
+
+
+    </style>
+</head>
+<body>
+<footer th:fragment="footer">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+
+            <div >
+                <ul class="nav navbar-nav navbar-left">
+                    <ol class="breadcrumb" th:if="${session.user}==null">
+                        <li class="active">欢迎</li>
+                        <li><a href="login.html" th:href="@{/loginMain}">登录</a></li>
+                        <li><a href="register.html" th:href="@{/register}">注册</a></li>
+                    </ol>
+                    <ol class="breadcrumb" th:if="${session.user}!=null">
+                        <li class="active">欢迎</li>
+                        <li th:text="${session.user.name}"></li>
+                        <li ><a th:href="@{/logoutMain}">退出</a></li>
+                    </ol>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <ol class="breadcrumb">
+                        <li class="dropdown" th:if="${session.user}!=null">
+                            <a href="#" th:href="@{/findOrderList}">
+                                订单详情
+                            </a>
+
+                        </li>
+                        <li th:if="${session.user}==null">
+                            <a href="#" th:href="@{/loginMain}">购物车</a>
+                        </li>
+                        <li th:if="${session.user}!=null">
+                            <a href="#" th:href="@{/cartList}" >购物车</a>
+                        </li>
+                        <li><a href="#" th:href="@{/xinshou}">新手指南</a></li>
+                    </ol>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <nav class="navbar navbar-default" role="navigation" style="width: 1000px; background: white;border: 0; position: relative;">
+        <div class="title_img" style="position: absolute; left: 160px;">
+            <img th:src="@{/shop/image/title.jpg}" style="width: 250px;height: 70px;"/>
+        </div>
+        <div class="container-fluid">
+            <form class="navbar-form navbar-right" role="search" th:action="@{/findProductLikeName}"  method="post">
+                <div class="form-group">
+                    <input type="text" name="name" class="form-control" placeholder="搜索商品">
+                </div>
+                <button type="submit" class="btn btn-default">搜索商品</button>
+            </form>
+        </div>
+        </div>
+    </nav>
+
+    <div class="topnav" style="width:1000px ;">
+
+        <ul class="clearfix">
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        商品分类
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="divider"></li>
+                        <li><a href="#" th:href="@{/findProductByCid (cid=1)}" style="color: black;">包包类</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" th:href="@{/findProductByCid (cid=2)}"style="color: black;">酒类</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" th:href="@{/findProductByCid (cid=3)}" style="color: black;">服装类</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" th:href="@{/findProductByCid (cid=4)}" style="color: black;">香水类</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <li class="topnav_Item  active">
+                <a href="#" th:href="@{/index}"  target="content" class="colors">首页</a></li>
+            <li class="topnav_Item"><a href="#" th:href="@{/productWholesaleList}">货源批发</a></li>
+            <li class="topnav_Item"><a href="#" th:href="@{/findBusinessByFree}">免税免邮</a></li>
+            <li class="topnav_Item"><a href="#"th:href="@{/productBySpelllistList}">拼单活动</a></li>
+            <li class="topnav_Item"><a href="#"th:href="@{/productBySpikeList}">今日秒杀</a></li>
+        </ul>
+    </div>
+</footer>
+</body>
+</html>
